@@ -4,11 +4,12 @@ public:
     {
         if(v.size()==1)
             return v[0]%m?v[0]/m+1:v[0]/m;
-        int maxi=INT_MIN,mini=INT_MAX;
+        
+        int maxi=INT_MIN;
      for(auto x:v)
          maxi=max(maxi,x);
         long long l=1,h=maxi;
-      // cout<<l<<" "<<h;
+     
         while(l<h)
         {
             long long mid=l+(h-l)/2;
@@ -20,7 +21,6 @@ public:
                     c++;
                 
             }
-           cout<<c<<" "<<mid<<endl;
             if(c>m)
                 l=mid+1;
             else
