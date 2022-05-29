@@ -1,7 +1,8 @@
 class Solution {
 public:
     vector<vector<int>> findWinners(vector<vector<int>>& v) {
-        vector<int>in(100006,0);
+       // vector<int>in(100006,0);
+        map<int,int>in;
         set<int>s;
         for(int i=0;i<v.size();i++)
             {
