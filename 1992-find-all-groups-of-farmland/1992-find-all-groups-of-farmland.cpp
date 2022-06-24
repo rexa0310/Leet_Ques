@@ -1,46 +1,46 @@
 class Solution {
 public:
-   vector<vector<int>> findFarmland(vector<vector<int>>& land) {
-        int m = land.size();
-        int n = land[0].size();
+    vector<vector<int>> findFarmland(vector<vector<int>>& v) {
+        int m=v.size();
+        int n=v[0].size();
         
-        vector<vector<int>> result;
-        for(int i = 0; i<m; i++) {
-            for(int j = 0; j<n; j++) {
+        vector<vector<int>>res;
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(v[i][j]==0)
+                    continue;
                 
-                //We have to deal with 1s only
-                if(land[i][j] == 0) continue;
-
-                //Find right most column of rectangle (see the image below)
-                int c1 = j;
-                while(c1 < n && land[i][c1] == 1) {
-                    c1++;
+                int r=i,c=j;
+                while(c<n && v[i][c]==1)
+                {
+                    c++;
                 }
-
-                //Find bottom most row of rectangle (see the image below)
-                int r2 = i;
-                while(r2 < m && land[r2][j] == 1) {
-                    r2++;
+                while(r<m &&v[r][j]==1)
+                    r++;
+               c = c==0 ? c: c-1;
+                r = r==0 ? r : r-1;
+                
+                res.push_back({i,j,r,c});
+                
+        //       for(int i=0;i<m;i++)
+        // {
+        //     for(int j=0;j<n;j++)
+        //     {
+        //         cout<<v[i][j]<<" ";
+        //     }
+        //           cout<<endl;
+        //       }
+        //         cout<<endl;
+                
+                for(int x=i;x<r+1;x++)
+                {
+                    for(int y=j;y<c+1;y++)
+                        v[x][y]=0;
                 }
-                
-                //Then you can find bottom right most of rectangle
-                c1 = c1==0 ? c1 : c1-1;
-                r2 = r2==0 ? r2 : r2-1;
-
-                //Use them as your answer
-                //{r1, c1} = {i, j}
-                //{r2, c2} = {r2, c1}
-                result.push_back({i, j, r2, c1});
-                
-                //Now, mark the covered land with 0 so that you don't consider them later
-                for(int k = i; k<=r2; k++) {
-                    for(int l = j; l<=c1; l++) {
-                        land[k][l] = 0;
-                    }
-                }
-                
             }
         }
-        return result;
-   }
+        return res;
+    }
 };
